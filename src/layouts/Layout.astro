@@ -1,13 +1,7 @@
 ---
 import "../styles/global.css";
-<<<<<<< HEAD
-import { getSession } from "auth-astro/server";
-=======
->>>>>>> parent of 5444033 (deconnexion)
-import { SignOut } from "auth-astro/components";
 
 const { title = "Scolarité - Test déploiement" } = Astro.props;
-const session = await getSession(Astro.request);
 ---
 
 <html lang="fr">
@@ -19,40 +13,19 @@ const session = await getSession(Astro.request);
 
   <body>
     <nav>
-      <div class="container flex items-center gap-4">
+      <div class="container">
         <strong>Scolarité</strong>
-
         <a href="/">Accueil</a>
         <a href="/students">Étudiants</a>
         <a href="/formations">Formations</a>
         <a href="/courses">Cours</a>
         <a href="/registrations">Inscriptions</a>
         <a href="/teachers">Teachers</a>
-
-<<<<<<< HEAD
-        {session && (
-          <SignOut class="ml-auto rounded-lg bg-red-500 px-4 py-2 text-white transition hover:bg-red-600">
-            Se déconnecter
-          </SignOut>
-        )}
-=======
-        <div class="ml-auto">
-          <SignOut
-            class="rounded-lg bg-red-500 px-4 py-2 text-white transition hover:bg-red-600"
-          >
-            Se déconnecter
-          </SignOut>
-        </div>
->>>>>>> parent of 5444033 (deconnexion)
       </div>
     </nav>
 
     <main class="container">
       <slot />
     </main>
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of 5444033 (deconnexion)
   </body>
 </html>
