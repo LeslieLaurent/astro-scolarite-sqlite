@@ -1,23 +1,25 @@
-import { defineConfig } from "astro/config";
-import node from "@astrojs/node";
-import auth from "auth-astro";
+import Google from '@auth/core/providers/google';
+import { defineConfig } from 'auth-astro';
 
 export default defineConfig({
-  output: "server",
+  redirectProxyUrl: 'https://scolarite-vps.leslie-laurent.fr/api/auth',
 
-  adapter: node({
-    mode: "standalone",
-  }),
+  providers: [
+    Google({
+      clientId: import.meta.env.GOOGLE_CLIENT_ID,
+      clientSecret: import.meta.env.GOOGLE_CLIENT_SECRET,
 
-  integrations: [auth()],
-
-  security: {
-    checkOrigin: false,
-    allowedDomains: [
-      {
-        hostname: "scolarite-vps.leslie-laurent.fr",
-        protocol: "https",
+      authorization: {
+        params: {
+          prompt: 'select_account',
+        },
       },
-    ],
+    }),
+  ],
+
+  callbacks: {
+    async redirect({ url, baseUrl }) {
+      return `${baseUrl}/`;
+    },
   },
 });
