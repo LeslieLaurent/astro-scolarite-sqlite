@@ -12,11 +12,6 @@ export default defineConfig({
   integrations: [auth()],
 
   security: {
-    allowedDomains: [
-      {
-        hostname: "scolarite-vps.leslie-laurent.fr",
-        protocol: "https",
-      },
-    ],
+    checkOrigin: false,
   },
 });
