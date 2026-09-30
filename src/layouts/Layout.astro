@@ -13,19 +13,40 @@ const { title = "Scolarité - Test déploiement" } = Astro.props;
 
   <body>
     <nav>
-      <div class="container">
+      <div class="container flex items-center gap-4">
         <strong>Scolarité</strong>
+
         <a href="/">Accueil</a>
         <a href="/students">Étudiants</a>
         <a href="/formations">Formations</a>
         <a href="/courses">Cours</a>
         <a href="/registrations">Inscriptions</a>
         <a href="/teachers">Teachers</a>
+
+        <button
+          id="logout-btn"
+          type="button"
+          class="ml-auto rounded-lg bg-red-500 px-4 py-2 text-white transition hover:bg-red-600"
+        >
+          Se déconnecter
+        </button>
       </div>
     </nav>
 
     <main class="container">
       <slot />
     </main>
+
+    <script>
+      import { signOut } from "auth-astro/client";
+
+      const logoutButton = document.getElementById("logout-btn");
+
+      logoutButton?.addEventListener("click", async () => {
+        await signOut({
+          callbackUrl: "/login",
+        });
+      });
+    </script>
   </body>
 </html>
