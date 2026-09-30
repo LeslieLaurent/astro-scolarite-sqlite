@@ -1,7 +1,10 @@
 ---
 import "../styles/global.css";
+import { getSession } from "auth-astro/server";
+import { SignOut } from "auth-astro/components";
 
 const { title = "Scolarité - Test déploiement" } = Astro.props;
+const session = await getSession(Astro.request);
 ---
 
 <html lang="fr">
@@ -23,12 +26,11 @@ const { title = "Scolarité - Test déploiement" } = Astro.props;
         <a href="/registrations">Inscriptions</a>
         <a href="/teachers">Teachers</a>
 
-        <button
-          id="logout-btn"
-          class="ml-auto rounded-lg bg-red-500 px-4 py-2 text-white transition hover:bg-red-600"
-        >
-          Se déconnecter
-        </button>
+        {session && (
+          <SignOut class="ml-auto rounded-lg bg-red-500 px-4 py-2 text-white transition hover:bg-red-600">
+            Se déconnecter
+          </SignOut>
+        )}
       </div>
     </nav>
 
@@ -36,14 +38,5 @@ const { title = "Scolarité - Test déploiement" } = Astro.props;
       <slot />
     </main>
 
-    <script>
-      const { signOut } = await import("auth-astro/client");
-
-      document
-        .getElementById("logout-btn")
-        ?.addEventListener("click", () => {
-          signOut();
-        });
-    </script>
   </body>
 </html>
